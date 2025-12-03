@@ -2,6 +2,7 @@ package com.app.accounts.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,7 +19,8 @@ public class BaseEntity {
 
 
     @Column(updatable=false)
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt =LocalDateTime.now();
+
     @Column(updatable=false)
     private String createdBy;
 
