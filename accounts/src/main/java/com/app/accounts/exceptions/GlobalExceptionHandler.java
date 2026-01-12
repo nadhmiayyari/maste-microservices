@@ -19,6 +19,17 @@ public class GlobalExceptionHandler {
     public GlobalExceptionHandler(@Qualifier("webRequest") WebRequest webRequest) {
         this.webRequest = webRequest;
     }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponseDto>
+    handleGlobalException(Exception exception){
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+                webRequest.getDescription(false),
+                HttpStatus.BAD_REQUEST,
+                exception.getMessage(),
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(errorResponseDto,HttpStatus.BAD_REQUEST);
+    }
 
 
     @ExceptionHandler(CustomerAlreadyExistsException.class)
